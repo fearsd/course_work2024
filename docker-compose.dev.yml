@@ -1,10 +1,20 @@
 services:
   backend:
-    build: ./backend/Dockerfile
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
     # ports: [3333]
     ports:
       - 3333:3333
     volumes:
       - ./backend:/app
 
-  # frontend:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - 3002:5173
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules

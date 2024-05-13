@@ -2,10 +2,10 @@ FROM golang:latest
 
 WORKDIR /app
 
-COPY ./backend /app
+COPY . .
 
 RUN go mod download
 
-RUN go get github.com/githubnemo/CompileDaemon
+RUN go install -mod=mod github.com/githubnemo/CompileDaemon
 
-ENTRYPOINT CompileDaemon --build="go build server.go" --command=./server
+CMD CompileDaemon --build="go build server.go" --command=./server
