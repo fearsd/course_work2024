@@ -1,7 +1,12 @@
-FROM node:20-alpine
+FROM node:20-slim
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+COPY . /app
 WORKDIR /app
-COPY package*.json .
-RUN npm install
-COPY . .
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm run build
+
 EXPOSE 5173
-CMD ["npm", "run", "dev"]
+CMD [ "pnpm", "run", "dev", "--host" ]
