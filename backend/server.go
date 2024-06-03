@@ -8,12 +8,8 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", handlers.Handler)
-
+	http.HandleFunc("/algo", handlers.HandleAlgo)
+	http.HandleFunc("/", handlers.HandleIndex)
 	fmt.Println("Server is running on http://:3333")
 	http.ListenAndServe(":3333", nil)
 }
-
-// TODO: функция алгоритма
-// TODO: хендлер, который принимает запрос на генерацию перестановки по заданному массиву
-// TODO: сделать интерактивный режим (придумать как объяснить это все по шагам)
