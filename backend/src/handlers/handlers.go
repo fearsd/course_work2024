@@ -9,16 +9,37 @@ import (
 )
 
 type RequestData struct {
-	Arr       []int
-	EdgeIndex int
-	LastIndex int
+	Arr       []int `json:"arr"`
+	EdgeIndex int   `json:"edgeIndex"`
+	LastIndex int   `json:"lastIndex"`
+}
+
+type ResponseData struct {
+	Arr       []int `json:"arr"`
+	EdgeIndex int   `json:"edgeIndex"`
+	LastIndex int   `json:"lastIndex"`
+	RandIndex int   `json:"randIndex"`
+}
+
+func setupResponse(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 }
 
 func HandleIndex(w http.ResponseWriter, r *http.Request) {
+	setupResponse(w, r)
 	fmt.Fprintf(w, "it works")
 }
 
 func HandleAlgo(w http.ResponseWriter, r *http.Request) {
+	setupResponse(w, r)
+
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
 	if r.Method != http.MethodPost {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return
@@ -29,13 +50,21 @@ func HandleAlgo(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&data)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
+		fmt.Println(err)
 		return
 	}
 
-	arr := algos.Algo(data.Arr, data.EdgeIndex, data.LastIndex)
-	response := fmt.Sprintf("arr: %v; edgeIndex: %d; lastIndex: %d", arr, data.EdgeIndex, data.LastIndex)
+	arr, rand_index := algos.Algo(data.Arr, data.EdgeIndex, data.LastIndex)
+	response := ResponseData{arr, data.EdgeIndex, data.LastIndex, rand_index}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]string{"message": response})
+	err = json.NewEncoder(w).Encode(response)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println("Request processed successfully")
 }

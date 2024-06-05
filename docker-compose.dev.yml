@@ -1,5 +1,6 @@
 services:
   backend:
+    container_name: course2024_backend
     build:
       context: ./backend
       dockerfile: ./Dockerfile
