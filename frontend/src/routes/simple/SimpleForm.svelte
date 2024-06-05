@@ -8,7 +8,7 @@
     async function generatePermutation(event: Event): Promise<void> {
         let arr: number[] = fromStringToArrayOfNum(seq);
         if (arr.length === 0) {
-            err = "Введена пустая последовательность";
+            err = "Введена пустой список";
             ans = "";
             return;
         }
@@ -31,7 +31,7 @@
 </script>
 
 <form action="">
-    <label for="">Введите последовательность:</label>
+    <label for="">Введите список чисел:</label>
     <input type="text" bind:value={seq}>
     <button on:click={generatePermutation}>Сгенерировать случайную перестановку</button>
 </form>

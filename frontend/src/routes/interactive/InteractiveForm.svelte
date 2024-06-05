@@ -30,7 +30,7 @@
         edgeIndex = arr.length - 1;
         lastIndex = arr.length - 2;
         if (arr.length === 0) {
-            err = "Введена пустая последовательность";
+            err = "Введена пустой список";
             ans = "";
             return;
         }
@@ -80,7 +80,7 @@
 </script>
 
 <form action="">
-    <label for="">Введите последовательность:</label>
+    <label for="">Введите список чисел:</label>
     <input type="text" bind:value={seq}>
     <button on:click={generatePermutation} disabled={isStarted}>Сгенерировать случайную перестановку</button>
 </form>

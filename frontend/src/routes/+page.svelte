@@ -3,8 +3,5 @@
 <p>Был сделан в качестве курсовой работы. Автор: Рифат Фазлутдинов</p>
 <p>
     <a href="https://github.com/fearsd/course_work2024" target="_blank">Исходный код (github)</a> 
-    <a
-    href="https://ru.wikipedia.org/wiki/%D0%A2%D0%B0%D1%81%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%D0%A4%D0%B8%D1%88%D0%B5%D1%80%D0%B0_%E2%80%94_%D0%99%D0%B5%D1%82%D1%81%D0%B0">
-    Страница об алгоритме на Википедии
-    </a>
+    <a href="https://w.wiki/8HvD" target="_blank">Страница об алгоритме на Википедии</a>
 </p>
